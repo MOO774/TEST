@@ -171,7 +171,7 @@
             fill="#ff7aa2"/>
     </svg>
 
-    <h1>nirali will you be my valentine?</h1>
+    <h1>niema will you be my valentine?</h1>
 
     <section class="button-zone" id="zone">
       <button id="yesBtn">Yes</button>
@@ -278,14 +278,26 @@
       growYes();
     }
 
-    zone.addEventListener("pointermove", e => {
-      const b = noBtn.getBoundingClientRect();
-      const d = Math.hypot(
-        (b.left + b.width / 2) - e.clientX,
-        (b.top + b.height / 2) - e.clientY
-      );
-      if (d < 140) moveNo(e.clientX, e.clientY);
-    });
+    function handleMove(x, y) {
+  const b = noBtn.getBoundingClientRect();
+  const d = Math.hypot(
+    (b.left + b.width / 2) - x,
+    (b.top + b.height / 2) - y
+  );
+  if (d < 140) moveNo(x, y);
+}
+
+/* 🖱️ PC */
+zone.addEventListener("mousemove", e => {
+  handleMove(e.clientX, e.clientY);
+});
+
+/* 📱 PHONE */
+zone.addEventListener("touchmove", e => {
+  const t = e.touches[0];
+  handleMove(t.clientX, t.clientY);
+}, { passive: true });
+
 
     noBtn.addEventListener("click", e => e.preventDefault());
 
@@ -300,6 +312,7 @@
   </script>
 </body>
 </html>
+
 
 
 
